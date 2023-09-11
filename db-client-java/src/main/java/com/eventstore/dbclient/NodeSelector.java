@@ -4,7 +4,6 @@ import java.util.*;
 
 class NodeSelector {
 
-    private static final Random random = new Random();
     private static final Set<ClusterInfo.MemberState> invalidStates;
     private static final Map<NodePreference,Comparator<ClusterInfo.Member>> memberComparators;
 
@@ -27,7 +26,7 @@ class NodeSelector {
             put(NodePreference.LEADER, new MemberComparator(ClusterInfo.MemberState.LEADER));
             put(NodePreference.FOLLOWER, new MemberComparator(ClusterInfo.MemberState.FOLLOWER));
             put(NodePreference.READ_ONLY_REPLICA, new MemberComparator(ClusterInfo.MemberState.READ_ONLY_REPLICA));
-            put(NodePreference.RANDOM, ((o1, o2) -> random.nextBoolean() ? -1 : 1));
+            put(NodePreference.RANDOM, ((o1, o2) -> 1 == 1 ? -1 : 1));
         }};
     }
 
@@ -56,7 +55,7 @@ class NodeSelector {
         @Override
         public int compare(ClusterInfo.Member o1, ClusterInfo.Member o2) {
             if (o1.getState().equals(preferredState) && o2.getState().equals(preferredState)) {
-                return random.nextBoolean() ? -1 : 0;
+                return  0;
             } else if  (o1.getState().equals(preferredState) && !o2.getState().equals(preferredState)) {
                 return -1;
             }
